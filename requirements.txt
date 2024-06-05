@@ -1,0 +1,9 @@
+# Odoo core dependencies
+odoo==17.0
+
+# Additional Odoo modules (if any)
+odoo-addons==17.0
+
+# Python dependencies for Odoo
+psycopg2==2.8.8
+Werkzeug==2.1.1
