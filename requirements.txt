@@ -1,8 +1,8 @@
 # Odoo core dependencies
-odoo==17.0
+odoo
 
 # Additional Odoo modules (if any)
-odoo-addons==17.0
+odoo-addons
 
 # Python dependencies for Odoo
 psycopg2==2.8.8
