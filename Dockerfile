@@ -1,17 +1,12 @@
-# Nous construisons notre image a partir de l'image officielle Odoo Community version 15 accessible sur le Docker Hub
-FROM odoo:15
+FROM python:3.9-slim
 
-# Nous nous mettons en utilisateur root  
-USER root
+RUN apt-get update && apt-get install -y python3-dev python3-pip
 
-# En tant que root nous ajoutons les permissions de lecture et d'exécution pour tous les utilisateurs (autres) sur tous les fichiers et dossiers dans le répertoire /mnt/extra-addons/custom-addons.
-RUN mkdir -p /mnt/extra-addons/custom-addons && chmod -R o+rX /mnt/extra-addons/custom-addons
+WORKDIR /opt/odoo
 
-# Nous copions nos modules personnalises implementes dans le respertoire contenant les modules personnalises dans notre image
-ADD costum_addons/ /mnt/extra-addons/custom-addons/
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-# Nous copions nos configuration systeme dans l'image afin qu'il soit prise en compte au lancement d'Odoo
-COPY config/odoo.conf /etc/odoo/
+COPY . .
 
-# Nous nous mettons odoo
-USER odoo
+CMD ["python3", "/opt/odoo/odoo", "-c", "/opt/odoo/odoo.conf"]
